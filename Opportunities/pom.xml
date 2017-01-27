@@ -180,6 +180,7 @@
 	    <version>2.16.1.redhat-630045</version>
 	</dependency>
 	
+	<!-- HTTP4 -->
 
     <!-- logging -->
     <dependency>
@@ -206,7 +207,7 @@
       <scope>test</scope>
     </dependency>
 
-  </dependencies>
+</dependencies>
 
   <build>
     <defaultGoal>install</defaultGoal>

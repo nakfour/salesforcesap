@@ -57,6 +57,9 @@
             <get uri="/getProductSet">
                 <to uri="direct:getAllProductSet"/>
             </get>
+            <get uri="/getBusinessPartners">
+                <to uri="direct:getBusinessPartnersSet"/>
+            </get>
         </rest>
         <route id="getOppoRecentList">
             <from id="_from1" uri="direct:getOppoRecentList"/>
@@ -119,6 +122,19 @@
             </setHeader>
             <convertBodyTo type="java.lang.String"/>
             <log id="_log7" message="Query result back from SAP: ${body}"/>
+        </route>
+        <route id="getBusinessPartnersSet">
+            <!-->split id="_split2"/-->
+            <from id="_from7" uri="direct:getBusinessPartnersSet"/>
+            <setHeader headerName="Content-Type" id="_setHeader5">
+                <constant>application/json</constant>
+            </setHeader>
+            <to id="_to9" uri="jetty:https://btierney-oieh3dvflgxgckcs3wxfxoer-demos-dev.mbaas2.tom.redhatmobile.com/sapnwsales?odata=BusinessPartnerSet&amp;bridgeEndpoint=true&amp;throwExceptionOnFailure=false&amp;chunked=false"/>
+            <setHeader headerName="Content-Type" id="_setHeader6">
+                <constant>application/json</constant>
+            </setHeader>
+            <convertBodyTo type="java.lang.String"/>
+            <log id="_log8" message="Query result back from SAP: ${body}"/>
         </route>
     </camelContext>
 </beans>

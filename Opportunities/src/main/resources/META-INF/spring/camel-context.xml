@@ -60,6 +60,18 @@
             <get uri="/getBusinessPartners">
                 <to uri="direct:getBusinessPartnersSet"/>
             </get>
+            <get uri="/getAccountList">
+                <to uri="direct:getAccountListSet"/>
+            </get>
+            <get uri="/getAccountDetail/{id}">
+                <to uri="direct:getIndiviualAccount"/>
+            </get>
+            <get uri="/getContactDetail/{id}">
+                <to uri="direct:getIndiviualContact"/>
+            </get>
+            <get uri="/getContactList">
+                <to uri="direct:getContactListSet"/>
+            </get>
         </rest>
         <route id="getOppoRecentList">
             <from id="_from1" uri="direct:getOppoRecentList"/>
@@ -120,7 +132,7 @@
             <setHeader headerName="Content-Type" id="_setHeader4">
                 <constant>application/json</constant>
             </setHeader>
-            <convertBodyTo type="java.lang.String"/>
+            <convertBodyTo id="_convertBodyTo2" type="java.lang.String"/>
             <log id="_log7" message="Query result back from SAP: ${body}"/>
         </route>
         <route id="getBusinessPartnersSet">
@@ -133,8 +145,53 @@
             <setHeader headerName="Content-Type" id="_setHeader6">
                 <constant>application/json</constant>
             </setHeader>
-            <convertBodyTo type="java.lang.String"/>
+            <convertBodyTo id="_convertBodyTo3" type="java.lang.String"/>
             <log id="_log8" message="Query result back from SAP: ${body}"/>
+        </route>
+        <route id="getAccountListSet">
+            <from id="_from8" uri="direct:getAccountListSet"/>
+            <to id="_to10" uri="salesforce:getBasicInfo?sObjectName=Account"/>
+            <setHeader headerName="Content-Type" id="_setHeader7">
+                <constant>application/json</constant>
+            </setHeader>
+            <convertBodyTo id="_convertBodyTo4" type="java.lang.String"/>
+            <log id="_log10" message="Query Account list result back from SAP: ${body}"/>
+        </route>
+        <route id="getIndiviualAccount">
+            <from id="_from9" uri="direct:getIndiviualAccount"/>
+            <setHeader headerName="sObjectId" id="_setHeader9">
+                <simple>${headers.id}</simple>
+            </setHeader>
+            <to id="_to11" uri="salesforce:getSObject?sObjectName=Account"/>
+            <setHeader headerName="Content-Type" id="_setHeader10">
+                <constant>application/json</constant>
+            </setHeader>
+            <convertBodyTo id="_convertBodyTo5" type="java.lang.String"/>
+            <log id="_log11" message="return from salesforce by Account ID ${body}"/>
+            
+        </route>
+        
+        <route id="getIndiviualContact">
+            <from id="_from10" uri="direct:getIndiviualContact"/>
+            <setHeader headerName="sObjectId" id="_setHeader11">
+                <simple>${headers.id}</simple>
+            </setHeader>
+            <to id="_to12" uri="salesforce:getSObject?sObjectName=Contact"/>
+            <setHeader headerName="Content-Type" id="_setHeader11">
+                <constant>application/json</constant>
+            </setHeader>
+            <convertBodyTo id="_convertBodyTo6" type="java.lang.String"/>
+            <log id="_log12" message="return from salesforce by Contact ID ${body}"/>
+            
+        </route>
+        <route id="getContactListSet">
+            <from id="_from11" uri="direct:getContactListSet"/>
+            <to id="_to13" uri="salesforce:getBasicInfo?sObjectName=Contact"/>
+            <setHeader headerName="Content-Type" id="_setHeader12">
+                <constant>application/json</constant>
+            </setHeader>
+            <convertBodyTo id="_convertBodyTo7" type="java.lang.String"/>
+            <log id="_log13" message="Query Contact list result back from SAP: ${body}"/>
         </route>
     </camelContext>
 </beans>

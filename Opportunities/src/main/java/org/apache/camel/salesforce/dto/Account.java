@@ -701,5 +701,18 @@ public class Account extends AbstractSObjectBase {
     public void setFuse_demo_input__c(Double Fuse_demo_input__c) {
         this.Fuse_demo_input__c = Fuse_demo_input__c;
     }
+    
+    //Juana Added this to ignore a fail
+ // Boss_fuse_demo_input__c
+    private Double Boss_fuse_demo_input__c;
+    @JsonProperty("Boss_Fuse_Integration_External_Id__c")
+    public Double getBoss_fuse_demo_input__c() {
+        return this.Boss_fuse_demo_input__c;
+    }
+    
+    @JsonProperty("Boss_Fuse_Integration_External_Id__c")
+    public void setBoss_fuse_demo_input__c(Double Boss_fuse_demo_input__c) {
+        this.Boss_fuse_demo_input__c = Boss_fuse_demo_input__c;
+    }
 
 }
